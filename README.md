@@ -23,3 +23,10 @@ tool install all tools need for pentesting on vps
 * Httprobe  
 * Seclists collection  
 * some wordlists  
+
+
+## Installation
+git clone https://github.com/xko2x/readyforhunt
+cd readyforhunt
+chmod +x install.sh
+./install.sh
