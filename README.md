@@ -26,7 +26,7 @@ tool install all tools need for pentesting on vps
 
 
 ## Installation
-git clone https://github.com/xko2x/readyforhunt
-cd readyforhunt
-chmod +x install.sh
-./install.sh
+git clone https://github.com/xko2x/readyforhunt  
+cd readyforhunt  
+chmod +x install.sh  
+./install.sh  
