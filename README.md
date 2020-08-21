@@ -1,6 +1,7 @@
 ## readyforhunt
 tool install all tools need for pentesting on vps 
-#tools:
+
+# tools:
 ffuf
 dirsearch
 autoSubTakeover
