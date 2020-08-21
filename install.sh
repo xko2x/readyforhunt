@@ -53,8 +53,7 @@ cd ~/tools/
 echo "done"
 
 echo "installing bash_profile aliases from recon_profile"
-git clone https://github.com/nahamsec/recon_profile.git
-cd recon_profile
+git clone https://github.com/xko2x/readyforhunt/blob/master/.bash_profile
 cat .bash_profile >> ~/.bash_profile
 source ~/.bash_profile
 cd ~/tools/
