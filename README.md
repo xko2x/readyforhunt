@@ -2,7 +2,7 @@
 tool install all tools need for pentesting on vps 
 
 # tools:
-ffuf
+* ffuf
 dirsearch
 autoSubTakeover
 subbrute
