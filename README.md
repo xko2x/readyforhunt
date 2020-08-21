@@ -1,5 +1,5 @@
 ## readyforhunt
-tool install all tools need for pentesting on vps 
+tool install all tools need for pentesting on vps and add small alias 
 
 # tools:
 * ffuf  
