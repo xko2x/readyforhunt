@@ -1,6 +1,5 @@
 ## readyforhunt
-tool install all tools need for pentesting on vps and add small alias 
-
+readyforhunt tool install and setup all tools need for bug bounty hunting on vps 
 # tools:
 * ffuf  
 * dirsearch  
@@ -30,3 +29,5 @@ git clone https://github.com/xko2x/readyforhunt
 cd readyforhunt  
 chmod +x install.sh  
 ./install.sh  
+
+recommended version: ubuntu 20.04
