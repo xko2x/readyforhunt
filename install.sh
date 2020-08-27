@@ -74,9 +74,8 @@ sudo mv go /usr/local
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-source ~/.bash_profile
-sleep 1
-cd ~/tools/
+cd ~/
+source .bash_profile
 cd ~/tools/
 
 
