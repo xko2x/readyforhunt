@@ -62,11 +62,21 @@ cd ~/
 echo "done"
 
 echo "installing bash_profile aliases from recon_profile"
-wget https://github.com/xko2x/readyforhunt/blob/master/.bash_profile
+wget https://raw.githubusercontent.com/xko2x/readyforhunt/master/.bash_profile
 source ~/.bash_profile
 echo "done"
 
-
+cd ~/trash/
+echo "Installing Golang"
+wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
+sudo tar -xvf go1.15.linux-amd64.tar.gz
+sudo mv go /usr/local
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+source ~/.bash_profile
+sleep 1
+cd ~/tools/
 cd ~/tools/
 
 
@@ -202,16 +212,12 @@ git clone https://github.com/nahamsec/crtndstry.git
 echo "done"
 
 
-mkdir ~/wordlist
-cd ~/wordlist
+cd ~/tools
 git clone https://github.com/danielmiessler/SecLists.git
-cd ~/wordlist/SecLists/Discovery/DNS/
+cd ~/tools/SecLists/Discovery/DNS/
 ##THIS FILE BREAKS MASSDNS AND NEEDS TO BE CLEANED
 cat dns-Jhaddix.txt | head -n -14 > clean-jhaddix-dns.txt
-cd ~/wordlist
-sudo wget -nc http://downloads.skullsecurity.org/passwords/rockyou.txt.bz2
-sudo wget -nc http://www.tekdefense.com/downloads/wordlists/1aNormusWL.zip
-sudo wget -nc http://www.tekdefense.com/downloads/wordlists/KippoWordlist.txt
+cd ~/tools
 sudo git clone https://github.com/digininja/CeWL.git
 echo "done"
 cd ~/tools
