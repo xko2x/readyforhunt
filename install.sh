@@ -224,7 +224,7 @@ cd ~/tools
 sudo git clone https://github.com/digininja/CeWL.git
 echo "done"
 cd ~/tools
-echo -e "\n\n\n\n\n\n\n\n\n\n\nDone! All tools are set up in ~/tools and ~/wordlist"
+echo -e "\n\n\n\n\n\n\n\n\n\n\nDone! All tools are set up in ~/tools"
 ls -la
 echo "One last time: don't forget to set up AWS credentials in ~/.aws/!"
 source ~/.bash_profile
