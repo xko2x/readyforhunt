@@ -22,6 +22,14 @@ sudo apt-get install -y rename
 sudo apt-get install -y xargs
 sudo apt-get install -y python3-pip
 sudo apt-get install -y docker.io
+sudo apt install snapd
+sudo snap install amass
+
+sudo apt install curl git libcurl4-openssl-dev make zlib1g-dev \
+gawk g++ gcc libreadline6-dev libssl-dev libyaml-dev \
+liblzma-dev autoconf libgdbm-dev libncurses5-dev automake \
+libtool bison pkg-config ruby ruby-bundler ruby-dev libsqlite3-dev sqlite3 -y
+
 mkdir ~/trash
 
 
@@ -50,29 +58,15 @@ pip install -r requirements.txt
 sudo pip install requests
 sudo pip install dnspython
 sudo pip install argparse
-cd ~/tools/
+cd ~/
 echo "done"
 
 echo "installing bash_profile aliases from recon_profile"
-git clone https://github.com/xko2x/readyforhunt/blob/master/.bash_profile
-cat .bash_profile >> ~/.bash_profile
+wget https://github.com/xko2x/readyforhunt/blob/master/.bash_profile
 source ~/.bash_profile
-cd ~/tools/
 echo "done"
 
-cd ~/trash/
-echo "Installing Golang"
-wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
-sudo tar -xvf go1.15.linux-amd64.tar.gz
-sudo mv go /usr/local
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-echo 'export GOROOT=/usr/local/go' >> ~/.bash_profile
-echo 'export GOPATH=$HOME/go'	>> ~/.bash_profile			
-echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' >> ~/.bash_profile	
-source ~/.bash_profile
-sleep 1
+
 cd ~/tools/
 
 
@@ -109,9 +103,11 @@ echo "done"
 
 
 echo "installing wpscan"
-git clone https://github.com/wpscanteam/wpscan.git
-cd wpscan*
-sudo gem install bundler && bundle install --without test
+gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+curl -sSL https://get.rvm.io | bash -s stable --ruby
+gem install nokogiri
+gem install wpscan
 cd ~/tools/
 echo "done"
 
@@ -218,7 +214,6 @@ sudo wget -nc http://www.tekdefense.com/downloads/wordlists/1aNormusWL.zip
 sudo wget -nc http://www.tekdefense.com/downloads/wordlists/KippoWordlist.txt
 sudo git clone https://github.com/digininja/CeWL.git
 echo "done"
-rm -rf ~/trash/
 cd ~/tools
 echo -e "\n\n\n\n\n\n\n\n\n\n\nDone! All tools are set up in ~/tools and ~/wordlist"
 ls -la
