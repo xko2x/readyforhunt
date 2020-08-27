@@ -120,6 +120,15 @@ gem install wpscan
 cd ~/tools/
 echo "done"
 
+
+echo "installing ffuf"
+wget https://github.com/ffuf/ffuf/releases/download/v1.1.0/ffuf_1.1.0_linux_amd64.tar.gz
+tar -xvzf ffuf_1.1.0_linux_amd64.tar.gz
+cp ffuf /usr/local/bin
+chmod +x /usr/local/bin/ffuf
+echo "done"
+cd ~/tools/
+
 echo "installing dirsearch"
 git clone https://github.com/maurosoria/dirsearch.git
 cd ~/tools/
@@ -191,12 +200,7 @@ tar -xvzf httprobe-linux-amd64-0.1.2.tgz
 cp httprobe /usr/local/bin
 chmod +x /usr/local/bin/httprobe
 echo "done"
-echo "installing ffuf"
-wget https://github.com/ffuf/ffuf/releases/download/v1.1.0/ffuf_1.1.0_linux_amd64.tar.gz
-tar -xvzf ffuf_1.1.0_linux_amd64.tar.gz
-cp ffuf /usr/local/bin
-chmod +x /usr/local/bin/ffuf
-echo "done"
+
 cd ~/tools/
 echo "installing unfurl"
 go get -u github.com/tomnomnom/unfurl 
