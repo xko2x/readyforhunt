@@ -21,6 +21,7 @@ sudo apt-get install -y git
 sudo apt-get install -y rename
 sudo apt-get install -y xargs
 sudo apt-get install -y python3-pip
+sudo apt-get install -y docker.io
 mkdir ~/trash
 
 
@@ -153,7 +154,9 @@ cd ~/tools/
 echo "done"
 
 echo "installing lazyrecon"
-git clone https://github.com/nahamsec/lazyrecon.git
+git clone https://github.com/soaringswine/lazyrecon_docker.git
+cd lazyrecon_docker
+docker build --rm -f "Dockerfile" -t lazyrecon_docker:latest .
 cd ~/tools/
 echo "done"
 
