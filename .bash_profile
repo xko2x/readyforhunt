@@ -1,8 +1,13 @@
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-#----- AWS -------
-
+#----- CONFIG -------
+########################################
+subdomainThreads=10
+dirsearchThreads=50
+dirsearchWordlist=$HOME/tools/dirsearch/db/dicc.txt
+dirsearchExtensions=php,asp,aspx,jsp,html,zip,jar,json,js,inc,inc.php,config,old,sql,db,cfg,bak
+########################################
 #----- AWS -------
 
 s3ls(){
@@ -19,12 +24,16 @@ curl -s $1 | grep path | sed -n "s/.*resource path=\"\(.*\)\".*/\1/p" | tee -a ~
 }
 
 #----- recon -----
+screenshot(){ 
+webscreenshot -o ./$1/screenshots/ -i ~/$1/$1.txt --timeout=10 -m 
+}
+
 dirs(){
 	name=$(echo $1 | unfurl -u domains)
 	x=$(date +%Y%m%d%H%M%S)
 	mkdir -p ~/FFUF-Reports
 	mkdir -p ~/FFUF-Reports/$name
-	ffuf -w /tools/SecLists/Discovery/Web-Content/CMS/Drupal.txt -u $1FUZZ -D -e asp,aspx,cgi,cfml,CFM,htm,html,json,jsp,php,phtml,pl,py,sh,shtml,sql,txt,xml,xhtml,tar,tar.gz,tgz,war,zip,swp,src,jar,java,log,bin,js,db -t 150 -o ~/FFUF-Reports/$name/$name_$x.json
+	ffuf -w /tools/SecLists/Discovery/Web-Content/CMS/Drupal.txt -u $1/FUZZ -D -e asp,aspx,cgi,cfml,CFM,htm,html,json,jsp,php,phtml,pl,py,sh,shtml,sql,txt,xml,xhtml,tar,tar.gz,tgz,war,zip,swp,src,jar,java,log,bin,js,db -t 150 -o ~/FFUF-Reports/$name/$name_$x.json
 }
 lazy(){ #fiexed lazyrecon with docker 
 docker run --user $(id -u):$(id -g) -v $(pwd)/lazyrecon_results:/home/lazyrecon_user/tools/lazyrecon/lazyrecon_results/ soaringswine/lazyrecon_docker -d $1
@@ -65,8 +74,8 @@ curl http://ipinfo.io/$1
 
 
 #------ Tools ------
-dirsearch(){ runs dirsearch and takes host and extension as arguments
-python3 ~/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b 
+dirsearch(){ ##runs dirsearch and takes host and extension as arguments
+python3 ~/tools/dirsearch/dirsearch.py -w $dirsearchWordlist -u $1 -e $dirsearchExtensions -t $dirsearchThreads -b
 }
 
 sqlmap(){
@@ -78,5 +87,5 @@ nc -l -n -vv -p $1 -k
 }
 
 crtshdirsearch(){ #gets all domains from crtsh, runs httprobe and then dir bruteforcers
-curl -s https://crt.sh/?q\=%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | httprobe -c 50 | grep https | xargs -n1 -I{} python3 ~/tools/dirsearch/dirsearch.py -u {} -e $2 -t 50 -b 
+curl -s https://crt.sh/?q\=%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | httprobe -c 50 | grep https | xargs -n1 -I{} python3 ~/tools/dirsearch/dirsearch.py -u {} -w $dirsearchWordlist -e $dirsearchExtensions -t $dirsearchThreads -b
 }
