@@ -24,7 +24,9 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y docker.io
 sudo apt install snapd
 sudo snap install amass
-
+pip install webscreenshot
+sudo apt-get install phantomjs
+apt-get install imagemagick 
 sudo apt install curl git libcurl4-openssl-dev make zlib1g-dev \
 gawk g++ gcc libreadline6-dev libssl-dev libyaml-dev \
 liblzma-dev autoconf libgdbm-dev libncurses5-dev automake \
@@ -204,6 +206,10 @@ echo "done"
 cd ~/tools/
 echo "installing unfurl"
 go get -u github.com/tomnomnom/unfurl 
+echo "done"
+
+echo "installing lazyrecon-docker"
+docker pull txt3rob/lazy-recon
 echo "done"
 
 echo "installing waybackurls"
