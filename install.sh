@@ -10,6 +10,7 @@ sudo apt-get install -y ruby-full
 sudo apt-get install -y libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev
 sudo apt-get install -y build-essential libssl-dev libffi-dev python-dev
 sudo apt-get install -y libldns-dev
+sudo apt install knockpy
 sudo add-apt-repository universe
 sudo apt update
 sudo apt install python2
@@ -24,9 +25,11 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y docker.io
 sudo apt install snapd
 sudo snap install amass
+sudo apt-get install -y masscan
+sudo apt-get install nmap
 pip install webscreenshot
 sudo apt-get install phantomjs
-apt-get install imagemagick 
+sudo apt-get install imagemagick 
 sudo apt install curl git libcurl4-openssl-dev make zlib1g-dev \
 gawk g++ gcc libreadline6-dev libssl-dev libyaml-dev \
 liblzma-dev autoconf libgdbm-dev libncurses5-dev automake \
@@ -220,6 +223,8 @@ echo "installing crtndstry"
 git clone https://github.com/nahamsec/crtndstry.git
 echo "done"
 
+echo "git-all-secerts"
+docker run --rm -it abhartiya/tools_gitallsecrets
 
 cd ~/tools
 git clone https://github.com/danielmiessler/SecLists.git
@@ -233,4 +238,5 @@ cd ~/tools
 echo -e "\n\n\n\n\n\n\n\n\n\n\nDone! All tools are set up in ~/tools"
 ls -la
 echo "One last time: don't forget to set up AWS credentials in ~/.aws/!"
+echo "and please activate bash_profile by 'source ~/.bash_profile' and edit config section at .bash_profile and put your info!!!!!"
 source ~/.bash_profile
