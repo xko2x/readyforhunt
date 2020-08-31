@@ -13,6 +13,8 @@ readyforhunt tool install and setup all tools need for bug bounty hunting on vps
 * Sublist3r  
 * teh_s3_bucketeers  
 * virtual-host-discovery  
+* nmap
+* Cwel
 * wpscan  
 * webscreenshot  
 * Massdns  
@@ -21,7 +23,7 @@ readyforhunt tool install and setup all tools need for bug bounty hunting on vps
 * Waybackurls  
 * Httprobe  
 * Seclists collection  
-* some wordlists  
+* seclist 
 
 
 ## Installation
