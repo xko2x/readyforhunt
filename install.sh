@@ -96,12 +96,6 @@ echo "Installing Chromium"
 sudo snap install chromium
 echo "done"
 
-echo "installing JSParser"
-git clone https://github.com/nahamsec/JSParser.git
-cd JSParser*
-sudo python setup.py install
-cd ~/tools/
-echo "done"
 
 echo "installing Sublist3r"
 git clone https://github.com/aboul3la/Sublist3r.git
