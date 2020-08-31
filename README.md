@@ -23,7 +23,6 @@ readyforhunt tool install and setup all tools need for bug bounty hunting on vps
 * Waybackurls  
 * Httprobe  
 * Seclists collection  
-* seclist 
 
 
 ## Installation
