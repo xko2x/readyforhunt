@@ -221,6 +221,48 @@ echo "git-all-secerts"
 docker run --rm -it abhartiya/tools_gitallsecrets
 
 cd ~/tools
+
+[ ! -f ~/tools/wordlists/ ] && mkdir ~/tools/wordlists/  2&>1
+[ ! -f ~/tools/wordlists/dns/ ] && mkdir ~/tools/wordlists/dns/  2&>1
+[ ! -f ~/tools/wordlists/content/ ] && mkdir ~/tools/wordlists/content/  2&>1
+[ ! -f ~/tools/wordlists/params/ ] && mkdir ~/tools/wordlists/params/  2&>1
+
+# domain discovery
+
+[[ -f ~/tools/wordlists/dns/all.txt ]] || wget -q -O ~/tools/wordlists/dns/all.txt https://gist.githubusercontent.com/jhaddix/86a06c5dc309d08580a018c66354a056/raw/96f4e51d96b2203f19f6381c8c545b278eaa0837/all.txt
+
+[[ -f ~/tools/wordlists/dns/commonspeak2-subdomains.txt ]] || wget -q -O ~/tools/wordlists/dns/commonspeak2-subdomains.txt https://raw.githubusercontent.com/assetnote/commonspeak2-wordlists/master/subdomains/subdomains.txt
+
+[[ -f ~/tools/wordlists/dns/shorts.txt ]] || wget -q -O ~/tools/wordlists/dns/shorts.txt https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-20000.txt
+
+# permutation domain
+[[ -f ~/tools/wordlists/dns/short-permutation.txt ]] || wget -q -O ~/tools/wordlists/dns/short-permutation.txt https://raw.githubusercontent.com/subfinder/goaltdns/master/words.txt
+
+# vhost domain
+[[ -f ~/tools/wordlists/dns/virtual-host-scanning.txt ]] || wget -q -O ~/tools/wordlists/dns/virtual-host-scanning.txt https://raw.githubusercontent.com/codingo/VHostScan/master/VHostScan/wordlists/virtual-host-scanning.txt
+
+# content discovery
+[[ -f ~/tools/wordlists/content/raft-large-directories.txt ]] || wget -q -O ~/tools/wordlists/content/raft-large-directories.txt https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/raft-large-directories.txt
+
+[[ -f ~/tools/wordlists/content/quick.txt ]] || wget -q -O ~/tools/wordlists/content/quick.txt https://raw.githubusercontent.com/maurosoria/dirsearch/master/db/dicc.txt
+
+
+[[ -f ~/tools/wordlists/content/top10000.txt ]] || wget -q -O ~/tools/wordlists/content/top10000.txt https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/RobotsDisallowed-Top1000.txt
+
+cat ~/tools/wordlists/content/quick.txt ~/tools/wordlists/content/top10000.txt > ~/tools/wordlists/content/quick-content-discovery.txt
+
+[[ -f ~/tools/wordlists/content/dir-all.txt ]] || wget -q -O ~/tools/wordlists/content/dir-all.txt https://gist.githubusercontent.com/jhaddix/b80ea67d85c13206125806f0828f4d10/raw/c81a34fe84731430741e0463eb6076129c20c4c0/content_discovery_all.txt
+
+# params
+[[ -f ~/tools/wordlists/params/param-miner.txt ]] || wget -q -O ~/tools/wordlists/params/param-miner.txt https://raw.githubusercontent.com/PortSwigger/param-miner/master/resources/params
+
+[[ -f ~/tools/wordlists/params/parameth.txt ]] || wget -q -O ~/tools/wordlists/params/parameth.txt https://raw.githubusercontent.com/maK-/parameth/master/lists/all.txt
+
+cat ~/tools/wordlists/params/param-miner.txt ~/tools/wordlists/params/parameth.txt | sort -u > ~/tools/wordlists/params/all.txt
+
+
+
+
 git clone https://github.com/danielmiessler/SecLists.git
 cd ~/tools/SecLists/Discovery/DNS/
 ##THIS FILE BREAKS MASSDNS AND NEEDS TO BE CLEANED
