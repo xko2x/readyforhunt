@@ -14,6 +14,18 @@ ffufExtensions=asp,aspx,cgi,cfml,CFM,htm,html,json,jsp,php,phtml,pl,py,sh,shtml,
 fuffcode=200,204,403,307,401,403 #default: 200,204,301,302,307,401,403
 githubtoken=xxxxxxxxxxxx #put your github token here
 ########################################
+
+#----- vulns -------
+
+gen(){ #runs nuclei scan
+nuclei -t vulnerabilities/generic -l $1 -c 200
+}
+
+tkv(){ #runs nuclei scan
+nuclei -t takeovers/subdomain-takeover.yaml -l $1 -c 200
+}
+
+
 #----- AWS -------
 
 s3ls(){
@@ -88,6 +100,7 @@ python3 ~/tools/dirsearch/dirsearch.py -w $dirsearchWordlist -u $1 -e $dirsearch
 sqlmap(){
 python ~/tools/sqlmap*/sqlmap.py -u $1 
 }
+
 
 ncx(){
 nc -l -n -vv -p $1 -k
