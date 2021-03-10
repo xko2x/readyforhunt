@@ -18,11 +18,11 @@ githubtoken=xxxxxxxxxxxx #put your github token here
 #----- vulns -------
 
 gen(){ #runs nuclei scan
-nuclei -t vulnerabilities/generic -l $1 -c 200
+nuclei -c 200 -t vulnerabilities/generic -l $1
 }
 
 tkv(){ #runs nuclei scan
-nuclei -t takeovers/subdomain-takeover.yaml -l $1 -c 200
+nuclei -c 200 -t takeovers/subdomain-takeover.yaml -l $1
 }
 
 
