@@ -83,16 +83,22 @@ crtsh(){
 curl -s https://crt.sh/?Identity=%.$1 | grep ">*.$1" | sed 's/<[/]*[TB][DR]>/\n/g' | grep -vE "<|^[\*]*[\.]*$1" | sort -u | awk 'NF'
 }
 
-certnmap(){
-curl https://certspotter.com/api/v0/certs\?domain\=$1 | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u | grep $1  | nmap -T5 -Pn -sS -i - -$
-} #h/t Jobert Abma
-
 ipinfo(){
 curl http://ipinfo.io/$1
 }
 
 
 #------ Tools ------
+wayback(){ 
+echo "$1" | gau | anew $1-waybacks.txt > /dev/null
+echo "$1" | waybackurls -no-subs | anew $1-waybacks.txt > /dev/null
+}
+
+waybackall(){ 
+cat $1 | gau | anew all-waybacks.txt > /dev/null
+cat $1 | waybackurls -no-subs | anew all-waybacks.txt > /dev/null
+}
+
 dirsearch(){ ##runs dirsearch and takes host and extension as arguments
 python3 ~/tools/dirsearch/dirsearch.py -w $dirsearchWordlist -u $1 -e $dirsearchExtensions -t $dirsearchThreads -b
 }
