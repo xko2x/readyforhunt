@@ -12,7 +12,6 @@ fuffwordlist=~/tools/wordlists/content/dir-all.txt #dont forget change it as you
 ffufExtensions=asp,aspx,cgi,cfml,CFM,htm,html,json,jsp,php,phtml,pl,py,sh,shtml,sql,txt,xml,xhtml,tar,tar.gz,tgz,war,zip,swp,src,jar,java,log,bin,js,db
 fuffcode=200,204,403,307,401,403 #default: 200,204,301,302,307,401,403
 notfuffcode=500-599,404,301,400 
-useragent="User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
 githubtoken=xxxxxxxxxxxx #put your github token here
 ########################################
 
@@ -41,13 +40,12 @@ aws s3 cp $2 s3://$1
 
 fastfuf(){
 
-	ffuf -w $fastffufwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H $useragent
+	ffuf -w $fastffufwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
 }
 
 fuf(){
 
-	ffuf -w $fuffwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H $useragent
-}
+	ffuf -w $fuffwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
 #----- recon -----
 screenshot(){
 echo "ex: screenshot tools/urlist.txt  output..."
