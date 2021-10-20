@@ -6,12 +6,13 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 auquatoneThreads=5
 chromiumPath=/snap/bin/chromium
 subdomainThreads=10
-dirsearchThreads=50
-dirsearchWordlist=~/tools/dirsearch/db/dicc.txt
+fastffufwordlist=~/tools/wordlists/content/quick.txt
 dirsearchExtensions=php,asp,aspx,jsp,html,zip,jar,json,js,inc,inc.php,config,old,sql,db,cfg,bak
-fuffwordlist=~/tools/SecLists/Discovery/Web-Content/Apache.fuzz.txt #dont forget change it as you like ~/tools/SecLists/Discovery/Web-Content/....
-ffufExtensions=asp,aspx,cgi,cfml,CFM,htm,html,json,jsp,php,phtml,pl,py,sh,shtml,sql,txt,xml,xhtml,tar,tar.gz,tgz,war,zip,swp,src,jar,java,log,bin,js,db
+fuffwordlist=~/tools/wordlists/content/dir-all.txt #dont forget change it as you like ~/tools/SecLists/Discovery/Web-Content/....
+ffufExtensions=asp,aspx,chttps://raw.githubusercontent.com/xko2x/readyforhunt/master/.bash_profilegi,cfml,CFM,htm,html,json,jsp,php,phtml,pl,py,sh,shtml,sql,txt,xml,xhtml,tar,tar.gz,tgz,war,zip,swp,src,jar,java,log,bin,js,db
 fuffcode=200,204,403,307,401,403 #default: 200,204,301,302,307,401,403
+notfuffcode=500-599,404,301,400 
+useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
 githubtoken=xxxxxxxxxxxx #put your github token here
 ########################################
 
@@ -37,15 +38,15 @@ aws s3 cp $2 s3://$1
 }
 
 #---- Content discovery ----
-dirs(){ #this grabs endpoints from a application.wadl and puts them in yahooapi.txt
-curl -s $1 | grep path | sed -n "s/.*resource path=\"\(.*\)\".*/\1/p" | tee -a ~/tools/dirsearch/db/yahooapi.txt
+
+fastfuf(){
+
+	ffuf -w $fastffufwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H $useragent
 }
+
 fuf(){
-	name=$(echo $1 | unfurl -u domains)
-	x=$(date +%Y%m%d%H%M%S)
-	mkdir -p ~/FFUF-Reports
-	mkdir -p ~/FFUF-Reports/$name
-	ffuf -w $fuffwordlist -u $1/FUZZ -D -e $ffufExtensions -t 150 -o ~/FFUF-Reports/$name/$name_$x.json -mc $fuffcode 
+
+	ffuf -w $fuffwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H $useragent
 }
 #----- recon -----
 screenshot(){
@@ -53,14 +54,6 @@ echo "ex: screenshot tools/urlist.txt  output..."
 cat ~/$1 | aquatone -chrome-path $chromiumPath -out ~/$2/aqua_out -threads $auquatoneThreads
 }    #urllist.txt                                     #output name
 
-
-lazy(){ #fiexed lazyrecon with docker 
-docker run --user $(id -u):$(id -g) -v $(pwd)/lazyrecon_results:/home/lazyrecon_user/tools/lazyrecon/lazyrecon_results/ soaringswine/lazyrecon_docker -d $1
-}
-
-crtndstry(){
-./tools/crtndstry/crtndstry $1
-}
 
 am(){ #runs amass passively and saves to json
 amass enum --passive -d $1 -json $1.json
@@ -97,10 +90,6 @@ echo "$1" | waybackurls -no-subs | anew $1-waybacks.txt > /dev/null
 waybackall(){ 
 cat $1 | gau | anew all-waybacks.txt > /dev/null
 cat $1 | waybackurls -no-subs | anew all-waybacks.txt > /dev/null
-}
-
-dirsearch(){ ##runs dirsearch and takes host and extension as arguments
-python3 ~/tools/dirsearch/dirsearch.py -w $dirsearchWordlist -u $1 -e $dirsearchExtensions -t $dirsearchThreads -b
 }
 
 sqlmap(){
