@@ -1,6 +1,3 @@
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 #----- CONFIG -------
 ########################################
 auquatoneThreads=5
@@ -46,6 +43,7 @@ fastfuf(){
 fuf(){
 
 	ffuf -w $fuffwordlist -u $1/FUZZ -D -ic -e $ffufExtensions -t 200  -mc $fuffcode -mc all -fc $notfuffcode -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+}
 #----- recon -----
 screenshot(){
 echo "ex: screenshot tools/urlist.txt  output..."
