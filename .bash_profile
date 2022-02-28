@@ -66,18 +66,9 @@ mscan(){ #runs masscan
 sudo masscan -p4443,2075,2076,6443,3868,3366,8443,8080,9443,9091,3000,8000,5900,8081,6000,10000,8181,3306,5000,4000,8888,5432,15672,9999,161,4044,7077,4040,9000,8089,443,744 $1
 }
 
-certspotter(){ 
-curl -s https://certspotter.com/api/v0/certs\?domain\=$1 | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u | grep $1
-} #h/t Michiel Prins
-
 crtsh(){
 curl -s https://crt.sh/?Identity=%.$1 | grep ">*.$1" | sed 's/<[/]*[TB][DR]>/\n/g' | grep -vE "<|^[\*]*[\.]*$1" | sort -u | awk 'NF'
 }
-
-ipinfo(){
-curl http://ipinfo.io/$1
-}
-
 
 #------ Tools ------
 wayback(){ 
@@ -90,11 +81,6 @@ cat $1 | gau | anew all-waybacks.txt > /dev/null
 cat $1 | waybackurls -no-subs | anew all-waybacks.txt > /dev/null
 }
 
-sqlmap(){
-python ~/tools/sqlmap*/sqlmap.py -u $1 
-}
-
-
 ncx(){
 nc -l -n -vv -p $1 -k
 }
@@ -102,6 +88,4 @@ nc -l -n -vv -p $1 -k
 crtshdirsearch(){ #gets all domains from crtsh, runs httprobe and then dir bruteforcers
 curl -s https://crt.sh/?q\=%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | httprobe -c 50 | grep https | xargs -n1 -I{} python3 ~/tools/dirsearch/dirsearch.py -u {} -w $dirsearchWordlist -e $dirsearchExtensions -t $dirsearchThreads -b
 }
-secerts(){ #tool will proceed to scan all the org repos, then all the user repos and user gists by org name only (ex: secerts roblox.com)
-docker run -it abhartiya/tools_gitallsecrets -token=$githubtoken -org=$1
-}
+
