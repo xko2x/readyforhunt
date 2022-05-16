@@ -79,6 +79,24 @@ cat $1 | gau | anew all-waybacks.txt > /dev/null
 cat $1 | waybackurls -no-subs | anew all-waybacks.txt > /dev/null
 }
 
+gauq() {
+	gau $1 -subs | \
+	grep "=" | \
+	egrep -iv ".(jpg|jpeg|gif|css|tif|tiff|png|ttf|woff|woff2|ico|pdf|svg|txt|js)" | \
+	qsreplace -a
+}
+
+sqliz() {
+	gauq $1 | python3 $HOME/Tools/DSSS/dsss.py
+}
+
+bxss() {
+	BLIND="https://your.xss.ht"
+	gauq $1 | kxss | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | \
+	dalfox pipe -b $BLIND
+}
+
+
 ncx(){
 nc -l -n -vv -p $1 -k
 }
