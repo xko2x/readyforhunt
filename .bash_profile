@@ -91,7 +91,7 @@ sqliz() {
 }
 
 bxss() {
-	BLIND="https://your.xss.ht"
+	BLIND="https://xxko2xx.xss.ht"
 	gauq $1 | kxss | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | \
 	dalfox pipe -b $BLIND
 }
